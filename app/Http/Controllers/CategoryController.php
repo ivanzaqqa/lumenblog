@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Post;
+use App\Models\Category;
 
-class PostController extends Controller
+class CategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,8 +14,8 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::all();
-        return response($posts);
+        $categories = Category::all();
+        return response($categories);
     }
 
     /**
@@ -36,14 +36,17 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        $posts = $request->isMethod('put') ? Post::findOrFail($request->id) : new Post;
+        $categories = $request->isMethod('put') ? Category::findOrFail($request->id) : new Category();
 
-        $posts->id = $request->input('id');
-        $posts->title = $request->input('title');
-        $posts->body = $request->input('body');
+        $categories->id = $request->input('id');
+        $categories->name = $request->input('name');
 
-        if ($posts->save()) {
-            return response($posts);
+        if ($request->isMethod('put')) {
+            return response("Updated successfully");
+        }
+
+        if ($categories->save()) {
+            return response($categories);
         }
     }
 
@@ -55,8 +58,8 @@ class PostController extends Controller
      */
     public function show($id)
     {
-        $posts = Post::findOrFail($id);
-        return response($posts);
+        $categories = Category::findOrFail($id);
+        return response($categories);
     }
 
     /**
@@ -90,10 +93,10 @@ class PostController extends Controller
      */
     public function destroy($id)
     {
-        $posts = Post::findOrFail($id);
+        $categories = Category::findOrFail($id);
 
-        if ($posts->delete()) {
-            return response('Deleted Successfully');
+        if ($categories->delete()) {
+            return response('Categories deleted successfully');
         }
     }
 }

@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Post;
+use App\Models\Tags;
 
-class PostController extends Controller
+class TagsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,8 +14,8 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::all();
-        return response($posts);
+        $tags = Tags::all();
+        return response($tags);
     }
 
     /**
@@ -36,14 +36,17 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        $posts = $request->isMethod('put') ? Post::findOrFail($request->id) : new Post;
+        $tags = $request->isMethod('put') ? Tags::findOrFail($request->id) : new Tags();
 
-        $posts->id = $request->input('id');
-        $posts->title = $request->input('title');
-        $posts->body = $request->input('body');
+        $tags->id = $request->input('id');
+        $tags->type = $request->input('type');
 
-        if ($posts->save()) {
-            return response($posts);
+        if ($request->isMethod('put')) {
+            return response("Tags Updated successfully");
+        }
+
+        if ($tags->save()) {
+            return response($tags);
         }
     }
 
@@ -55,8 +58,8 @@ class PostController extends Controller
      */
     public function show($id)
     {
-        $posts = Post::findOrFail($id);
-        return response($posts);
+        $tags = Tags::findOrFail($id);
+        return response($tags);
     }
 
     /**
@@ -90,10 +93,10 @@ class PostController extends Controller
      */
     public function destroy($id)
     {
-        $posts = Post::findOrFail($id);
+        $tags = Tags::findOrFail($id);
 
-        if ($posts->delete()) {
-            return response('Deleted Successfully');
+        if ($tags->delete()) {
+            return response('Tags deleted successfully');
         }
     }
 }
