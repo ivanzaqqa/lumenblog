@@ -1,0 +1,108 @@
+[2021-10-03 01:19:38] local.ERROR: Uncaught Error: Call to a member function getRoutes() on array in Command line code:1
+Stack trace:
+#0 {main}
+  thrown {"exception":"[object] (Symfony\\Component\\ErrorHandler\\Error\\FatalError(code: 0): Uncaught Error: Call to a member function getRoutes() on array in Command line code:1
+Stack trace:
+#0 {main}
+  thrown at Command line code:1)
+[stacktrace]
+#0 {main}
+"} 
+[2021-10-03 01:19:38] local.ERROR: Uncaught Error: Call to undefined function app_path() in Command line code:1
+Stack trace:
+#0 {main}
+  thrown {"exception":"[object] (Symfony\\Component\\ErrorHandler\\Error\\FatalError(code: 0): Uncaught Error: Call to undefined function app_path() in Command line code:1
+Stack trace:
+#0 {main}
+  thrown at Command line code:1)
+[stacktrace]
+#0 {main}
+"} 
+[2021-10-03 01:19:38] local.ERROR: Uncaught Illuminate\Contracts\Container\BindingResolutionException: Target [Illuminate\Contracts\Http\Kernel] is not instantiable. in /Users/ivnzqq/Sites/lumenblog/vendor/illuminate/container/Container.php:1093
+Stack trace:
+#0 /Users/ivnzqq/Sites/lumenblog/vendor/illuminate/container/Container.php(886): Illuminate\Container\Container->notInstantiable('Illuminate\\Cont...')
+#1 /Users/ivnzqq/Sites/lumenblog/vendor/illuminate/container/Container.php(758): Illuminate\Container\Container->build('Illuminate\\Cont...')
+#2 /Users/ivnzqq/Sites/lumenblog/vendor/illuminate/container/Container.php(694): Illuminate\Container\Container->resolve('Illuminate\\Cont...', Array)
+#3 /Users/ivnzqq/Sites/lumenblog/vendor/laravel/lumen-framework/src/Application.php(300): Illuminate\Container\Container->make('Illuminate\\Cont...', Array)
+#4 /Users/ivnzqq/Sites/lumenblog/vendor/laravel/lumen-framework/src/helpers.php(42): Laravel\Lumen\Application->make('Illuminate\\Cont...', Array)
+#5 Command line code(1): app('Illuminate\\Cont...')
+#6 {main}
+  thrown {"exception":"[object] (Symfony\\Component\\ErrorHandler\\Error\\FatalError(code: 0): Uncaught Illuminate\\Contracts\\Container\\BindingResolutionException: Target [Illuminate\\Contracts\\Http\\Kernel] is not instantiable. in /Users/ivnzqq/Sites/lumenblog/vendor/illuminate/container/Container.php:1093
+Stack trace:
+#0 /Users/ivnzqq/Sites/lumenblog/vendor/illuminate/container/Container.php(886): Illuminate\\Container\\Container->notInstantiable('Illuminate\\\\Cont...')
+#1 /Users/ivnzqq/Sites/lumenblog/vendor/illuminate/container/Container.php(758): Illuminate\\Container\\Container->build('Illuminate\\\\Cont...')
+#2 /Users/ivnzqq/Sites/lumenblog/vendor/illuminate/container/Container.php(694): Illuminate\\Container\\Container->resolve('Illuminate\\\\Cont...', Array)
+#3 /Users/ivnzqq/Sites/lumenblog/vendor/laravel/lumen-framework/src/Application.php(300): Illuminate\\Container\\Container->make('Illuminate\\\\Cont...', Array)
+#4 /Users/ivnzqq/Sites/lumenblog/vendor/laravel/lumen-framework/src/helpers.php(42): Laravel\\Lumen\\Application->make('Illuminate\\\\Cont...', Array)
+#5 Command line code(1): app('Illuminate\\\\Cont...')
+#6 {main}
+  thrown at /Users/ivnzqq/Sites/lumenblog/vendor/illuminate/container/Container.php:1093)
+[stacktrace]
+#0 {main}
+"} 
+[2021-10-03 01:19:39] local.ERROR: Uncaught Illuminate\Contracts\Container\BindingResolutionException: Unresolvable dependency resolving [Parameter #1 [ <required> $cachePath ]] in class Illuminate\View\Compilers\Compiler in /Users/ivnzqq/Sites/lumenblog/vendor/illuminate/container/Container.php:1108
+Stack trace:
+#0 /Users/ivnzqq/Sites/lumenblog/vendor/illuminate/container/Container.php(1015): Illuminate\Container\Container->unresolvablePrimitive(Object(ReflectionParameter))
+#1 /Users/ivnzqq/Sites/lumenblog/vendor/illuminate/container/Container.php(950): Illuminate\Container\Container->resolvePrimitive(Object(ReflectionParameter))
+#2 /Users/ivnzqq/Sites/lumenblog/vendor/illuminate/container/Container.php(912): Illuminate\Container\Container->resolveDependencies(Array)
+#3 /Users/ivnzqq/Sites/lumenblog/vendor/illuminate/container/Container.php(758): Illuminate\Container\Container->build('Illuminate\\View...')
+#4 /Users/ivnzqq/Sites/lumenblog/vendor/illuminate/container/Container.php(694): Illuminate\Container\Container->resolve('Illuminate\\View...', Array)
+#5 /Users/ivnzqq/Sites/lumenblog/vendor/laravel/lumen-framework/src/Application.php(300): Illuminate\Container\Container->make('Illuminate\\View...', Array)
+#6 /Users/ivnzqq/Sites/lumenblog/vendor/laravel/lumen-framework/src/helpers.php(42): Laravel\Lumen\Application->make('Illuminate\\View...', Array)
+#7 Command line code(1): app('Illuminate\\View...')
+#8 {main}
+  thrown {"exception":"[object] (Symfony\\Component\\ErrorHandler\\Error\\FatalError(code: 0): Uncaught Illuminate\\Contracts\\Container\\BindingResolutionException: Unresolvable dependency resolving [Parameter #1 [ <required> $cachePath ]] in class Illuminate\\View\\Compilers\\Compiler in /Users/ivnzqq/Sites/lumenblog/vendor/illuminate/container/Container.php:1108
+Stack trace:
+#0 /Users/ivnzqq/Sites/lumenblog/vendor/illuminate/container/Container.php(1015): Illuminate\\Container\\Container->unresolvablePrimitive(Object(ReflectionParameter))
+#1 /Users/ivnzqq/Sites/lumenblog/vendor/illuminate/container/Container.php(950): Illuminate\\Container\\Container->resolvePrimitive(Object(ReflectionParameter))
+#2 /Users/ivnzqq/Sites/lumenblog/vendor/illuminate/container/Container.php(912): Illuminate\\Container\\Container->resolveDependencies(Array)
+#3 /Users/ivnzqq/Sites/lumenblog/vendor/illuminate/container/Container.php(758): Illuminate\\Container\\Container->build('Illuminate\\\\View...')
+#4 /Users/ivnzqq/Sites/lumenblog/vendor/illuminate/container/Container.php(694): Illuminate\\Container\\Container->resolve('Illuminate\\\\View...', Array)
+#5 /Users/ivnzqq/Sites/lumenblog/vendor/laravel/lumen-framework/src/Application.php(300): Illuminate\\Container\\Container->make('Illuminate\\\\View...', Array)
+#6 /Users/ivnzqq/Sites/lumenblog/vendor/laravel/lumen-framework/src/helpers.php(42): Laravel\\Lumen\\Application->make('Illuminate\\\\View...', Array)
+#7 Command line code(1): app('Illuminate\\\\View...')
+#8 {main}
+  thrown at /Users/ivnzqq/Sites/lumenblog/vendor/illuminate/container/Container.php:1108)
+[stacktrace]
+#0 {main}
+"} 
+[2021-10-03 01:20:37] local.ERROR: Uncaught Error: Call to undefined function app_path() in Command line code:1
+Stack trace:
+#0 {main}
+  thrown {"exception":"[object] (Symfony\\Component\\ErrorHandler\\Error\\FatalError(code: 0): Uncaught Error: Call to undefined function app_path() in Command line code:1
+Stack trace:
+#0 {main}
+  thrown at Command line code:1)
+[stacktrace]
+#0 {main}
+"} 
+[2021-10-03 01:21:38] local.ERROR: Uncaught Error: Call to undefined function app_path() in Command line code:1
+Stack trace:
+#0 {main}
+  thrown {"exception":"[object] (Symfony\\Component\\ErrorHandler\\Error\\FatalError(code: 0): Uncaught Error: Call to undefined function app_path() in Command line code:1
+Stack trace:
+#0 {main}
+  thrown at Command line code:1)
+[stacktrace]
+#0 {main}
+"} 
+[2021-10-03 01:21:55] local.ERROR: Uncaught Error: Call to a member function getRoutes() on array in Command line code:1
+Stack trace:
+#0 {main}
+  thrown {"exception":"[object] (Symfony\\Component\\ErrorHandler\\Error\\FatalError(code: 0): Uncaught Error: Call to a member function getRoutes() on array in Command line code:1
+Stack trace:
+#0 {main}
+  thrown at Command line code:1)
+[stacktrace]
+#0 {main}
+"} 
+[2021-10-03 01:22:38] local.ERROR: Uncaught Error: Call to undefined function app_path() in Command line code:1
+Stack trace:
+#0 {main}
+  thrown {"exception":"[object] (Symfony\\Component\\ErrorHandler\\Error\\FatalError(code: 0): Uncaught Error: Call to undefined function app_path() in Command line code:1
+Stack trace:
+#0 {main}
+  thrown at Command line code:1)
+[stacktrace]
+#0 {main}
+"} 
