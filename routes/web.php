@@ -16,3 +16,9 @@
 $router->get('/', function () use ($router) {
     return $router->app->version();
 });
+
+$router->get('/posts', 'PostController@index');
+$router->get('/posts/{id}', 'PostController@show');
+$router->post('/posts', 'PostController@store');
+$router->put('posts', 'PostController@store');
+$router->delete('/posts/{id}', 'PostController@destroy');
