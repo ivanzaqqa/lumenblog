@@ -4,9 +4,15 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Post;
+use Illuminate\Support\Facades\Validator;
 
 class PostController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -15,7 +21,12 @@ class PostController extends Controller
     public function index()
     {
         $posts = Post::all();
-        return response($posts);
+
+        return response()->json([
+            'success' => true,
+            'message' => 'List All Post',
+            'data' => $posts
+        ], 200);
     }
 
     /**
@@ -36,14 +47,35 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        $posts = $request->isMethod('put') ? Post::findOrFail($request->id) : new Post;
+        $validator = Validator::make($request->all(), [
+            'title' => 'required',
+            'body' => 'required',
+        ]);
 
-        $posts->id = $request->input('id');
-        $posts->title = $request->input('title');
-        $posts->body = $request->input('body');
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'message' => 'All Fields Required!',
+                'data' => $validator->errors(),
+            ], 401);
+        } else {
+            $posts = Post::create([
+                'title' => $request->input('title'),
+                'body' => $request->input('body'),
+            ]);
 
-        if ($posts->save()) {
-            return response($posts);
+            if ($posts) {
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Posts added successfully',
+                    'data' => $posts,
+                ], 201);
+            } else {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Failed to add Posts!',
+                ], 400);
+            }
         }
     }
 
@@ -55,8 +87,20 @@ class PostController extends Controller
      */
     public function show($id)
     {
-        $posts = Post::findOrFail($id);
-        return response($posts);
+        $posts = Post::find($id);
+
+        if ($posts) {
+            return response()->json([
+                'success' => true,
+                'message' => 'Detail Posts',
+                'data' => $posts
+            ], 200);
+        } else {
+            return response()->json([
+                'success' => false,
+                'message' => 'Posts with id ' . $id . ' not found!'
+            ], 404);
+        }
     }
 
     /**
@@ -79,7 +123,36 @@ class PostController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'title' => 'required',
+            'body' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'message' => 'All Fields Required!',
+                'data' => $validator->errors(),
+            ], 401);
+        } else {
+            $posts = Post::whereId($id)->update([
+                'title' => $request->input('title'),
+                'body' => $request->input('body'),
+            ]);
+
+            if ($posts) {
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Posts updated successfully',
+                    'data' => $posts,
+                ], 201);
+            } else {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Failed to update Posts!',
+                ], 400);
+            }
+        }
     }
 
     /**
@@ -90,10 +163,18 @@ class PostController extends Controller
      */
     public function destroy($id)
     {
-        $posts = Post::findOrFail($id);
+        $posts = Post::whereId($id)->delete();
 
-        if ($posts->delete()) {
-            return response('Deleted Successfully');
+        if ($posts) {
+            return response()->json([
+                'success' => true,
+                'message' => 'Posts deleted successfully',
+            ], 200);
+        } else {
+            return response()->json([
+                'success' => false,
+                'message' => 'Post failed to delete',
+            ], 400);
         }
     }
 }

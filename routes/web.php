@@ -17,23 +17,31 @@ $router->get('/', function () use ($router) {
     return $router->app->version();
 });
 
+// AUTH
+$router->post('/register', 'UserController@register');
+$router->post('/login', 'UserController@login');
+
 // POSTS
 $router->get('/posts', 'PostController@index');
 $router->get('/posts/{id}', 'PostController@show');
 $router->post('/posts', 'PostController@store');
-$router->put('posts', 'PostController@store');
+$router->put('posts/{id}', 'PostController@update');
 $router->delete('/posts/{id}', 'PostController@destroy');
 
 // CATEGORIES
-$router->get('/categories', 'CategoryController@index');
-$router->get('/categories/{id}', 'CategoryController@show');
-$router->post('/categories', 'CategoryController@store');
-$router->put('categories', 'CategoryController@store');
-$router->delete('/categories/{id}', 'CategoryController@destroy');
+$router->group(['prefix' => 'categories', 'middleware' => 'cors'], function () use ($router) {
+    $router->get('/categories', 'CategoryController@index');
+    $router->get('/categories/{id}', 'CategoryController@show');
+    $router->post('/categories', 'CategoryController@store');
+    $router->put('categories', 'CategoryController@store');
+    $router->delete('/categories/{id}', 'CategoryController@destroy');
+});
 
 // TAGS
-$router->get('/tags', 'TagsController@index');
-$router->get('/tags/{id}', 'TagsController@show');
-$router->post('/tags', 'TagsController@store');
-$router->put('tags', 'TagsController@store');
-$router->delete('/tags/{id}', 'TagsController@destroy');
+$router->group(['prefix' => 'tags', 'middleware' => 'cors'], function () use ($router) {
+    $router->get('/tags', 'TagsController@index');
+    $router->get('/tags/{id}', 'TagsController@show');
+    $router->post('/tags', 'TagsController@store');
+    $router->put('tags', 'TagsController@store');
+    $router->delete('/tags/{id}', 'TagsController@destroy');
+});
