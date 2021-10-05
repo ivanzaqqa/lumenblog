@@ -8,10 +8,10 @@ use Illuminate\Support\Facades\Validator;
 
 class PostController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
+    // public function __construct()
+    // {
+    //     $this->middleware('auth');
+    // }
 
     /**
      * Display a listing of the resource.
@@ -21,6 +21,8 @@ class PostController extends Controller
     public function index()
     {
         $posts = Post::all();
+
+        $response = ['posts' => $posts];
 
         return response()->json([
             'success' => true,

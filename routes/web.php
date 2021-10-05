@@ -29,19 +29,15 @@ $router->put('posts/{id}', 'PostController@update');
 $router->delete('/posts/{id}', 'PostController@destroy');
 
 // CATEGORIES
-$router->group(['prefix' => 'categories', 'middleware' => 'cors'], function () use ($router) {
-    $router->get('/categories', 'CategoryController@index');
-    $router->get('/categories/{id}', 'CategoryController@show');
-    $router->post('/categories', 'CategoryController@store');
-    $router->put('categories', 'CategoryController@store');
-    $router->delete('/categories/{id}', 'CategoryController@destroy');
-});
+$router->get('/categories', 'CategoryController@index');
+$router->get('/categories/{id}', 'CategoryController@show');
+$router->post('/categories', 'CategoryController@store');
+$router->put('categories/{id}', 'CategoryController@update');
+$router->delete('/categories/{id}', 'CategoryController@destroy');
 
 // TAGS
-$router->group(['prefix' => 'tags', 'middleware' => 'cors'], function () use ($router) {
-    $router->get('/tags', 'TagsController@index');
-    $router->get('/tags/{id}', 'TagsController@show');
-    $router->post('/tags', 'TagsController@store');
-    $router->put('tags', 'TagsController@store');
-    $router->delete('/tags/{id}', 'TagsController@destroy');
-});
+$router->get('/tags', 'TagsController@index');
+$router->get('/tags/{id}', 'TagsController@show');
+$router->post('/tags', 'TagsController@store');
+$router->put('tags/{id}', 'TagsController@update');
+$router->delete('/tags/{id}', 'TagsController@destroy');

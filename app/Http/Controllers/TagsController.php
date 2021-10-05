@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Tags;
+use Illuminate\Support\Facades\Validator;
 
 class TagsController extends Controller
 {
@@ -20,7 +21,14 @@ class TagsController extends Controller
     public function index()
     {
         $tags = Tags::all();
-        return response($tags);
+
+        $response = ['tags' => $tags];
+
+        return response()->json([
+            'success' => true,
+            'message' => 'List All Categories',
+            'data' => $tags
+        ], 200);
     }
 
     /**
@@ -41,17 +49,33 @@ class TagsController extends Controller
      */
     public function store(Request $request)
     {
-        $tags = $request->isMethod('put') ? Tags::findOrFail($request->id) : new Tags();
+        $validator = Validator::make($request->all(), [
+            'type' => 'required',
+        ]);
 
-        $tags->id = $request->input('id');
-        $tags->type = $request->input('type');
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'message' => 'All Fields Required!',
+                'data' => $validator->errors(),
+            ], 401);
+        } else {
+            $tags = Tags::create([
+                'type' => $request->input('type'),
+            ]);
 
-        if ($request->isMethod('put')) {
-            return response("Tags Updated successfully");
-        }
-
-        if ($tags->save()) {
-            return response($tags);
+            if ($tags) {
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Tags added successfully',
+                    'data' => $tags,
+                ], 201);
+            } else {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Failed to add Tags!',
+                ], 400);
+            }
         }
     }
 
@@ -63,8 +87,20 @@ class TagsController extends Controller
      */
     public function show($id)
     {
-        $tags = Tags::findOrFail($id);
-        return response($tags);
+        $tags = Tags::find($id);
+
+        if ($tags) {
+            return response()->json([
+                'success' => true,
+                'message' => 'Detail Tags',
+                'data' => $tags
+            ], 200);
+        } else {
+            return response()->json([
+                'success' => false,
+                'message' => 'Tags with id ' . $id . ' not found!'
+            ], 404);
+        }
     }
 
     /**
@@ -87,7 +123,34 @@ class TagsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'type' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'message' => 'All Fields Required!',
+                'data' => $validator->errors(),
+            ], 401);
+        } else {
+            $tags = Tags::whereId($id)->update([
+                'type' => $request->input('type'),
+            ]);
+
+            if ($tags) {
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Tags updated successfully',
+                    'data' => $tags,
+                ], 201);
+            } else {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Failed to update Tags!',
+                ], 400);
+            }
+        }
     }
 
     /**
@@ -98,10 +161,18 @@ class TagsController extends Controller
      */
     public function destroy($id)
     {
-        $tags = Tags::findOrFail($id);
+        $tags = Tags::whereId($id)->delete();
 
-        if ($tags->delete()) {
-            return response('Tags deleted successfully');
+        if ($tags) {
+            return response()->json([
+                'success' => true,
+                'message' => 'Tags deleted successfully',
+            ], 200);
+        } else {
+            return response()->json([
+                'success' => false,
+                'message' => 'Tags failed to delete',
+            ], 400);
         }
     }
 }

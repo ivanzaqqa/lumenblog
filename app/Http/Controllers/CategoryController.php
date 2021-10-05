@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Category;
+use Illuminate\Support\Facades\Validator;
 
 class CategoryController extends Controller
 {
@@ -20,7 +21,14 @@ class CategoryController extends Controller
     public function index()
     {
         $categories = Category::all();
-        return response($categories);
+
+        $response = ['categories' => $categories];
+
+        return response()->json([
+            'success' => true,
+            'message' => 'List All Categories',
+            'data' => $categories
+        ], 200);
     }
 
     /**
@@ -41,17 +49,33 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        $categories = $request->isMethod('put') ? Category::findOrFail($request->id) : new Category();
+        $validator = Validator::make($request->all(), [
+            'name' => 'required',
+        ]);
 
-        $categories->id = $request->input('id');
-        $categories->name = $request->input('name');
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'message' => 'All Fields Required!',
+                'data' => $validator->errors(),
+            ], 401);
+        } else {
+            $categories = Category::create([
+                'name' => $request->input('name'),
+            ]);
 
-        if ($request->isMethod('put')) {
-            return response("Updated successfully");
-        }
-
-        if ($categories->save()) {
-            return response($categories);
+            if ($categories) {
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Categories added successfully',
+                    'data' => $categories,
+                ], 201);
+            } else {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Failed to add Categories!',
+                ], 400);
+            }
         }
     }
 
@@ -63,8 +87,20 @@ class CategoryController extends Controller
      */
     public function show($id)
     {
-        $categories = Category::findOrFail($id);
-        return response($categories);
+        $categories = Category::find($id);
+
+        if ($categories) {
+            return response()->json([
+                'success' => true,
+                'message' => 'Detail Categories',
+                'data' => $categories
+            ], 200);
+        } else {
+            return response()->json([
+                'success' => false,
+                'message' => 'Categories with id ' . $id . ' not found!'
+            ], 404);
+        }
     }
 
     /**
@@ -87,7 +123,34 @@ class CategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'name' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'message' => 'All Fields Required!',
+                'data' => $validator->errors(),
+            ], 401);
+        } else {
+            $categories = Category::whereId($id)->update([
+                'name' => $request->input('name'),
+            ]);
+
+            if ($categories) {
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Categories updated successfully',
+                    'data' => $categories,
+                ], 201);
+            } else {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Failed to update Categories!',
+                ], 400);
+            }
+        }
     }
 
     /**
@@ -98,10 +161,18 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        $categories = Category::findOrFail($id);
+        $categories = Category::whereId($id)->delete();
 
-        if ($categories->delete()) {
-            return response('Categories deleted successfully');
+        if ($categories) {
+            return response()->json([
+                'success' => true,
+                'message' => 'Categories deleted successfully',
+            ], 200);
+        } else {
+            return response()->json([
+                'success' => false,
+                'message' => 'Categories failed to delete',
+            ], 400);
         }
     }
 }
